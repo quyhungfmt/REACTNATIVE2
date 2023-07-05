@@ -1,12 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { LogBox, StyleSheet, Text, View } from 'react-native';
+import loginSc from './src/loginSc';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+
+const stack = createNativeStackNavigator();
+function Mystack (){
+  return(
+    <NavigationContainer>
+    <stack.Navigator>
+      <stack.Screen
+      name='loginsc' 
+      component={loginSc}
+      options={{headerShown: false}}/>
+    </stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default function App() {
+  LogBox.ignoreAllLogs();   // tắt cảnh báo yellow-box
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Mystack/>
   );
 }
 
