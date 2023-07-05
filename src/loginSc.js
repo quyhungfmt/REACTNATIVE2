@@ -1,5 +1,5 @@
 import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Buttonlogin from './buttonlogin'
 import LoginStyle from './Loginstyle'
 import { Ionicons } from '@expo/vector-icons'
@@ -10,6 +10,8 @@ const helo = () =>
 }
 
 const loginSc = ({navigation}) => {
+  const [PassWord, setpassword] = useState('');
+  const [showpass, setshowpass] = useState(true);
   return (
 <View
 style={{
@@ -19,6 +21,7 @@ style={{
 }}>
     <View style={styles.headerlogin}>
           <View style={{backgroundColor:'white',
+          flex:1,
           height:90,width:'90%',
           marginTop:10,
           marginLeft:5,
@@ -30,13 +33,13 @@ style={{
           alignItems: 'center',
           }}>
             <LoginStyle text="L" color='#f4b2b2' colortext='blue'
-            top={30} left={20}
+            top={-10} left={20}
             />
             <LoginStyle text="0" color='#98bacd' colortext='red' 
-            top={-15} 
+            top={-15} left={10}
             /> 
             <LoginStyle text="g" color='#bfebb2' colortext='black'  
-            left={5} top={20}
+            left={5} top={15}
             />   
             <LoginStyle text="i" color='#6da8ac' colortext='pink'  
             left={5}
@@ -47,25 +50,26 @@ style={{
           </View>
     </View>
       <View style={{
-        flex:5,
-        marginTop:20,
+      flex:5,
+      marginTop:10,
       backgroundColor:'#cdc0c0',
       borderTopRightRadius:90,
       borderTopLeftRadius:90,
     }}>
       <View style={{
         flex:1,
-        marginTop:60,
-      borderTopRightRadius:100,
-      borderTopLeftRadius:100,
-          backgroundColor:'#afa7a7',
+        marginTop:50,
+        borderTopRightRadius:100,
+        borderTopLeftRadius:100,
+        backgroundColor:'#afa7a7',
         }}>
           <View style={{
         flex:1,
-        marginTop:60,
-      borderTopRightRadius:100,
-      borderTopLeftRadius:100,
-          backgroundColor:'#090641',
+        marginTop:50,
+        borderTopRightRadius:150,
+        borderTopLeftRadius:70,
+        backgroundColor:'#090641',
+        borderBottomLeftRadius:150
         }}>
           <View style={{
             padding:30,
@@ -81,14 +85,17 @@ style={{
               Username or Email
             </Text>
           </View>
-            
+            <View style={{
+              backgroundColor:'#5a5984',
+              borderRadius:10,
+            }}>
             <TextInput
             placeholder='Type here...'
             maxLength={15}
             style={styles.textinput}
             >
             </TextInput>
-          
+          </View>
           </View>
           <View style={{
             marginTop:10,
@@ -101,13 +108,20 @@ style={{
               PassWord
             </Text>
             </View>
+            <View style={{
+              flexDirection:'row', backgroundColor:'#5a5984',alignItems:'center',borderRadius:10,
+            }}>
             <TextInput
             placeholder='Type here...'
-            secureTextEntry
+            secureTextEntry={showpass}
+            value={PassWord}
             maxLength={10}
             style={styles.textinput}
+            onChangeText={setpassword}
             >
             </TextInput>
+            <Ionicons name={showpass? 'eye-off' : 'eye'} size={20} color="black" onPress={() => setshowpass((prev) => !prev)} />
+            </View>
           </View>
           <View style ={{
             alignItems : 'center',
@@ -155,6 +169,7 @@ const styles = StyleSheet.create({
   },
   textinput: {
     backgroundColor:'#5a5984',
+    width:'92%',
     borderRadius:10,
     padding:5,
   }
