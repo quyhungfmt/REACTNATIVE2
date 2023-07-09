@@ -1,17 +1,52 @@
 import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import Buttonlogin from './buttonlogin'
-import LoginStyle from './Loginstyle'
+import Buttonlogin from '../datacustom/buttonlogin'
+import LoginStyle from '../datacustom/Loginstyle'
 import { Ionicons } from '@expo/vector-icons'
 import { AntDesign, Entypo  } from '@expo/vector-icons'; 
-const helo = () =>
-{
-  console.log('heleo');
-}
+import SignInfirebase from '../datacustom/Signinfirebase'
+import { auth } from '../../firebaseConfig';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import styles from '../../components/styles/styles'
 
 const loginSc = ({navigation}) => {
   const [PassWord, setpassword] = useState('');
+  const [Email, setEmail] = useState('');
   const [showpass, setshowpass] = useState(true);
+  const user = auth.currentUser;
+  
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      navigation.navigate('CustomDrawer')
+      console.log('login')
+      setpassword('')
+      setEmail('')
+    } else {
+      navigation.navigate('loginsc')
+      console.log('logout')
+      console.log(user)
+    }
+  }
+  )
+
+  const loginfirebase = () =>
+      {
+
+        if(Email.length == '')
+        {
+          console.log('nhap email')
+        }
+        if(PassWord.length == '')
+        {
+         console.log('nhap password')
+        }
+        else
+        {
+          SignInfirebase(auth,Email,PassWord);
+          ;
+          }
+      }
+    
   return (
 <View
 style={{
@@ -20,18 +55,7 @@ style={{
   paddingTop:30,
 }}>
     <View style={styles.headerlogin}>
-          <View style={{backgroundColor:'white',
-          flex:1,
-          height:90,width:'90%',
-          marginTop:10,
-          marginLeft:5,
-          borderBottomEndRadius:100,
-          borderRadius:10,
-          borderBottomLeftRadius:60,
-          borderTopLeftRadius:60,
-          flexDirection: 'row',
-          alignItems: 'center',
-          }}>
+          <View style={styles.headerlogin1}>
             <LoginStyle text="L" color='#f4b2b2' colortext='blue'
             top={-10} left={20}
             />
@@ -93,6 +117,8 @@ style={{
             placeholder='Type here...'
             maxLength={15}
             style={styles.textinput}
+            value = {Email}
+            onChangeText={setEmail}
             >
             </TextInput>
           </View>
@@ -128,7 +154,9 @@ style={{
             marginTop:30,
 
           }}>
-            <Buttonlogin text="Login" color='black' onPress={helo}/>
+            <Buttonlogin text="Login" color='black' onPress={()=> {
+              loginfirebase();
+            }}/>
           </View>
           </View>
         </View>
@@ -146,31 +174,3 @@ style={{
 
 export default loginSc
 
-const styles = StyleSheet.create({
-  headerlogin:{
-    flex:1,
-      backgroundColor:'#869fe4',
-      borderBottomEndRadius:140,
-      borderBottomColor: '#c2cef2',
-      borderBottomStartRadius:70,
-      borderTopStartRadius:75,
-      borderBottomWidth:8,
-  },
-  textlogin: {
-    color:'white',
-    fontSize : 32,
-    paddingRight:80,
-    fontWeight: 'bold',
-  },
-  textEmailandpassword: {
-    fontSize:16,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  textinput: {
-    backgroundColor:'#5a5984',
-    width:'92%',
-    borderRadius:10,
-    padding:5,
-  }
-})
