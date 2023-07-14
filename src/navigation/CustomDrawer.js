@@ -1,15 +1,14 @@
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import { createDrawerNavigator } from '@react-navigation/drawer'
 import Realtime_Sc from '../Screen/realtime_Sc';
 import DrawerContent from './drawercontent';
 import Settingsc from '../Screen/Settingsc';
 import AboutsSc from '../Screen/AboutsSc';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import HomeSc from '../Screen/HomeSc';
 
-const Drawer = createDrawerNavigator();
-
+ const Drawer = createDrawerNavigator();
 const CustomDrawer = () => {
-
   return (
     <View style={{
         flex:1,
@@ -30,7 +29,7 @@ const CustomDrawer = () => {
           width:'50%',
         }
         }}
-       defaultStatus='close'
+     //  defaultStatus='close'
 
       drawerContent={props => { 
         return(
@@ -39,9 +38,7 @@ const CustomDrawer = () => {
         />
       )}}
       >
-            <Drawer.Screen name='Realtime'>
-                 {props => <Realtime_Sc {...props}/>}
-               </Drawer.Screen>
+           <Drawer.Screen name='Realtime' component={Realtime_Sc}/>
             <Drawer.Screen name='Setting'>
                 {props => <Settingsc {...props}/>}
             </Drawer.Screen>

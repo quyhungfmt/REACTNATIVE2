@@ -1,14 +1,23 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text,Image } from 'react-native'
 import React, { useState } from 'react'
 import { DrawerContentScrollView } from '@react-navigation/drawer'
 import icon from '../../assets/icon.png'
-import {auth} from '../../firebaseConfig'
 import DrawerItem from './drawerItem'
 import styles from '../../components/styles/styles'
-import { signOut } from 'firebase/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { auth } from '../../firebaseConfig'
 const DrawerContent = ({navigation}) => {
-    const Email = auth.currentUser.email;
-    const [ispress,setispress] = useState('')
+    
+  const [Email,setEmail] = useState('')
+    AsyncStorage.getItem('email').then(value => {
+    setEmail(value)
+  });
+     const [ispress,setispress] = useState('')
+    const logout = () => {
+        AsyncStorage.setItem('login', JSON.stringify(false));
+                    navigation.navigate('loginsc')
+                    console.log('1')
+    }
   return (
     <DrawerContentScrollView
     scrollEnabled={true}
@@ -68,11 +77,7 @@ const DrawerContent = ({navigation}) => {
             </View>
             <DrawerItem title={"Logout"} icon={"logout"} onPress={() =>
             {
-                signOut(auth).then(() => {
-                    console.log('logout completed')
-                  }).catch((error) => {
-                    // An error happened.
-                  });
+                    logout();
             }}/>
 
         </View>

@@ -3,13 +3,13 @@ import React from 'react'
 import { useDrawerProgress } from '@react-navigation/drawer';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import HeaderShown from './HeaderShown';
+import { useNavigation } from '@react-navigation/native';
 
 
-const DrawerSceneWrapper = ({children}) => {
+const DrawerSceneWrapper = ({children,title}) => {
+  const navigation = useNavigation()
     const progress = useDrawerProgress();
     const {width} = useWindowDimensions();
-    console.log(progress.value);
-  
     const Stylesc = useAnimatedStyle(() => ({
       transform: [
         {perspective: 1000},
@@ -34,6 +34,7 @@ const DrawerSceneWrapper = ({children}) => {
   
     return (
       <Animated.View style={[styles.container, Stylesc]}>
+         <HeaderShown icon={"list"} title={title} onpress={()=> navigation.toggleDrawer() }></HeaderShown>
         {children}
       </Animated.View>
     );

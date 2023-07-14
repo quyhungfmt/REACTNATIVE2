@@ -1,22 +1,21 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
 const HeaderShown = ({title,onpress,icon}) => {
   return (
-        <View style={{
-          backgroundColor:'white',
+        <SafeAreaView style={{
+          backgroundColor:'#fcfcfa',
           flexDirection:'row',
           alignItems: 'center',
-          borderRadius:5,
+          borderRadius:10,
           marginTop:30,
-          
         }}>
          
          <TouchableOpacity  onPress={onpress}>
          <View style={{
           width:80,
-          height:35,
+          height:40,
           marginLeft:10,
          }}>
          <Ionicons name={icon} size={30} color="black" />
@@ -30,7 +29,7 @@ const HeaderShown = ({title,onpress,icon}) => {
             {title}
           </Text>
           </View>
-        </View>
+        </SafeAreaView>
   
   )
 }

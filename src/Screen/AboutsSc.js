@@ -5,10 +5,7 @@ import HeaderShown from '../navigation/HeaderShown'
 
 const AboutsSc = ({navigation}) => {
   return (
-    <DrawerSceneWrapper>
-      <HeaderShown icon={"list"} title={"AboutsSc"} onpress={()=> navigation.toggleDrawer() }>
-
-      </HeaderShown>
+    <DrawerSceneWrapper title={'About'}>
       <View style={{
         justifyContent:'center',
         alignItems: 'center',

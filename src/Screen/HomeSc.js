@@ -3,8 +3,8 @@ import React from 'react'
 
 const HomeSc = ({navigation}) => {
   return (
-    <View style={{backgroundColor:'blue'}}>
-      <Text>HomeSc</Text>
+    <View style={{backgroundColor:'blue', flex:1, alignItems:"center", justifyContent:'center'}}>
+      <Text onPress={() =>navigation.toggleDrawer()}>HomeSc</Text>
     </View>
   )
 }

@@ -2,19 +2,24 @@ import { Alert, BackHandler, LogBox, StyleSheet, Text, View } from 'react-native
 import loginSc from './src/Screen/loginSc';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { useEffect } from 'react';
-import Settingsc from './src/Screen/Settingsc';
+import { useEffect, useState } from 'react';
 import CustomDrawer from './src/navigation/CustomDrawer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import MyStack1 from './src/navigation/MyStack1';
+import Task from './src/datacustom/Realtime/taskrealtime';
+
+
 
 const stack = createNativeStackNavigator();
 function Mystack (){
+  
   return(
-    <NavigationContainer>
+  
     <stack.Navigator>
       <stack.Screen name='loginsc' component={loginSc} options={{headerShown: false}}/>
       <stack.Screen name='CustomDrawer' component={CustomDrawer} options={{headerShown: false}}/>
     </stack.Navigator>
-    </NavigationContainer>
+   
   );
 }
 
@@ -40,8 +45,26 @@ export default function App() {
 
     return () => backHandler.remove();
   }, []);
+
+  const[islogin,setlogin] = useState(false);
+  console.log({islogin})
+  const _data = async () => {
+    try {
+      const data = await AsyncStorage.getItem('login')
+      setlogin(data);
+    }
+    catch(error)
+    {
+
+    }
+  }
+  useEffect(() => {_data()})
   return (
-    <Mystack/>
+    <NavigationContainer>
+      {islogin === "false"?  <Mystack/> : <MyStack1/>}
+     
+    </NavigationContainer>
+    // <Task/>
   );
 }
 

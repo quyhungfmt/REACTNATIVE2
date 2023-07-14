@@ -6,7 +6,7 @@ import DrawerSceneWrapper from '../navigation/Drawerscreen';
 
 export default function Settingsc({navigation})  {
   return (
-    <DrawerSceneWrapper>
+    <DrawerSceneWrapper title={'Setting'}>
     <View style={{
       justifyContent:'center',
       alignItems: 'center',

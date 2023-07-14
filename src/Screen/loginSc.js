@@ -1,51 +1,32 @@
 import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Buttonlogin from '../datacustom/buttonlogin'
 import LoginStyle from '../datacustom/Loginstyle'
 import { Ionicons } from '@expo/vector-icons'
 import { AntDesign, Entypo  } from '@expo/vector-icons'; 
 import SignInfirebase from '../datacustom/Signinfirebase'
-import { auth } from '../../firebaseConfig';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
 import styles from '../../components/styles/styles'
+import { getAuth } from 'firebase/auth'
 
-const loginSc = ({navigation}) => {
+const loginSc =  ({navigation}) => {
   const [PassWord, setpassword] = useState('');
   const [Email, setEmail] = useState('');
   const [showpass, setshowpass] = useState(true);
-  const user = auth.currentUser;
+  const auth = getAuth();
   
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      navigation.navigate('CustomDrawer')
-      console.log('login')
-      setpassword('')
-      setEmail('')
-    } else {
-      navigation.navigate('loginsc')
-      console.log('logout')
-      console.log(user)
-    }
-  }
-  )
 
-  const loginfirebase = () =>
+
+  const loginfirebase = () =>{
+  if(Email.length == 0)
       {
-
-        if(Email.length == '')
-        {
-          console.log('nhap email')
-        }
-        if(PassWord.length == '')
-        {
-         console.log('nhap password')
-        }
-        else
-        {
-          SignInfirebase(auth,Email,PassWord);
-          ;
-          }
+        console.log('Please enter')
       }
+      else{
+        {
+          SignInfirebase(auth,Email,PassWord,{navigation});
+        }
+      }
+    }
     
   return (
 <View
